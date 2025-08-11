@@ -5,6 +5,8 @@ This application exists to automate the data rebalance process on indexer cluste
 ## Installation
 This application only needs to be installed on a cluster manager, it is not useful on any other instance.
 
+Note this app is not designed to work with Splunk cloud.
+
 ## Usage
 ```
 [auto_data_rebalance://example]
@@ -49,6 +51,17 @@ The excess bucket argument will also respect the target_index setting if set.
 A log file is created in $SPLUNK_HOME/var/log/splunk/auto_data_rebalance.log
 
 You can also enable debug logging if you need to troubleshoot the input
+
+### SSL validation errors
+If you see an error such as:
+`Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1106)')))`
+
+or you see the response of:
+`SSL_Verify_Error`
+
+This simply means that the port 8089 is running an SSL certificate that is not trusted by the default certificate store in use by Splunk's python
+You can change `verify=True` to `verify=False` in the bin/auto_data_rebalance.py file and this will bypass SSL validation of your local Splunk instance on port 8089 (note that this comes with a minor security risk)
+
 
 ## Feedback?
 Feel free to open an issue on github or use the contact author on the [SplunkBase link](TBA) and I will try to get back to you when possible, thanks!

@@ -161,7 +161,7 @@ class AutoDataRebalance(smi.Script):
             # Make the GET request
             try:
                 logger.debug(f"Attempting to call url={status_url} headers={headers}")
-                response = requests.get(status_url, headers=headers, verify=False)
+                response = requests.get(status_url, headers=headers, verify=True)
             except requests.exceptions.SSLError:
                 logger.error(f"requests.get call to url={status_url} failed due to SSLError, you may need to set verify=False")
                 return
@@ -182,7 +182,7 @@ class AutoDataRebalance(smi.Script):
                 break 
             try:
                 logger.debug(f"Attempting to call url={search_factor_url} headers={headers}")
-                response = requests.get(search_factor_url, headers=headers, verify=False)
+                response = requests.get(search_factor_url, headers=headers, verify=True)
             except requests.exceptions.SSLError:
                 logger.error(f"requests.get call to url={search_factor_url} failed due to SSLError, you may need to set verify=False")
                 return
@@ -205,7 +205,7 @@ class AutoDataRebalance(smi.Script):
             # check if threshold matches our expectations
             try:
                 logger.debug(f"Attempting to call url={server_conf_url} headers={headers}")
-                response = requests.get(server_conf_url, headers=headers, verify=False)
+                response = requests.get(server_conf_url, headers=headers, verify=True)
             except requests.exceptions.SSLError:
                 logger.error(f"requests.get call to url={server_conf_url} failed due to SSLError, you may need to set verify=False")
                 return
@@ -224,7 +224,7 @@ class AutoDataRebalance(smi.Script):
 
             if not current_threshold or current_threshold!=threshold:
                 logger.info(f"Current rebalance_threshold in server.conf appears to be current_threshold={current_threshold}, setting to threshold={threshold}")
-                response = requests.post(search_conf_settings, headers=headers, data={"rebalance_threshold": threshold},verify=False)
+                response = requests.post(search_conf_settings, headers=headers, data={"rebalance_threshold": threshold},verify=True)
                 if response.status_code != 200:
                     logger.error(f"POST request failed with status_code={response.status_code} text={response.text}")
                     return
@@ -237,7 +237,7 @@ class AutoDataRebalance(smi.Script):
                     logger.debug(f"Adding target_index={target_index}")
                     payload['index'] = target_index
  
-                response = requests.post(excess_buckets_url, headers=headers, data=payload,verify=False)
+                response = requests.post(excess_buckets_url, headers=headers, data=payload,verify=True)
                 if response.status_code != 200:
                     logger.error(f"POST request failed with status_code={response.status_code} text={response.text}")
                     return
@@ -248,7 +248,7 @@ class AutoDataRebalance(smi.Script):
 
             if usage_based:
                 logger.debug(f"Attempting to call {usage_based_url} action=status")
-                response = requests.post(usage_based_url, headers=headers, data={"action": "status"},verify=False)
+                response = requests.post(usage_based_url, headers=headers, data={"action": "status"},verify=True)
                 if response.status_code != 200:
                     logger.error(f"POST request failed with status_code={response.status_code} text={response.text}")
                     return
@@ -264,7 +264,7 @@ class AutoDataRebalance(smi.Script):
                 # this could be a an smiEvent(data=...), ew.write_event(event) if required
                 logger.info(f"stddev_after_usage_rebalance={stddev_after_usage_rebalance} stddev_before_usage_rebalance={stddev_before_usage_rebalance} stddev_current={stddev_current}")
                 # logic could be used to determine the appropriate standard deviation but for now we'll just run the rebalance
-                response = requests.post(usage_based_url, headers=headers, data={"action": "start"},verify=False)
+                response = requests.post(usage_based_url, headers=headers, data={"action": "start"},verify=True)
                 if response.status_code != 200:
                     logger.error(f"POST request failed with status_code={response.status_code} text={response.text}")
                     return
@@ -281,7 +281,7 @@ class AutoDataRebalance(smi.Script):
                 if max_runtime:
                     logger.debug(f"Adding max_runtime={max_runtime}")
                     payload['max_time_in_min'] = max_runtime
-                response = requests.post(rebalance_url, headers=headers, data=payload, verify=False)
+                response = requests.post(rebalance_url, headers=headers, data=payload, verify=True)
                 data = response.json()
                 logger.debug(f"Response={data}")
                 description = data['entry'][0]['content']['description']
