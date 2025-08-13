@@ -224,7 +224,7 @@ class AutoDataRebalance(smi.Script):
 
             if not current_threshold or current_threshold!=threshold:
                 logger.info(f"Current rebalance_threshold in server.conf appears to be current_threshold={current_threshold}, setting to threshold={threshold}")
-                response = requests.post(search_conf_settings, headers=headers, data={"rebalance_threshold": threshold},verify=True)
+                response = requests.post(server_conf_settings, headers=headers, data={"rebalance_threshold": threshold},verify=True)
                 if response.status_code != 200:
                     logger.error(f"POST request failed with status_code={response.status_code} text={response.text}")
                     return
