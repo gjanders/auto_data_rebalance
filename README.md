@@ -67,6 +67,9 @@ You can change `verify=True` to `verify=False` in the bin/auto_data_rebalance.py
 Feel free to open an issue on github or use the contact author on the [SplunkBase link](https://splunkbase.splunk.com/app/7969) and I will try to get back to you when possible, thanks!
 
 ## Release Notes
+### 0.0.4
+Corrected an error where the threshold would always be set, even if it was unchanged
+
 ### 0.0.3
 Corrected a typo that would stop this from working as expected if the threshold is not matching the configuration
 

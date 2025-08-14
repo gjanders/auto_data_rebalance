@@ -113,7 +113,7 @@ class AutoDataRebalance(smi.Script):
                     logger.error("Invalid threshold, needs to be a positive decimal number")
                     break 
             else:
-                threshold = 0.9
+                threshold = "0.9"
 
             if "max_runtime" in input_item:
                 max_runtime = input_item["max_runtime"]
