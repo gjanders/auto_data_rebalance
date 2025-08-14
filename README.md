@@ -67,6 +67,9 @@ You can change `verify=True` to `verify=False` in the bin/auto_data_rebalance.py
 Feel free to open an issue on github or use the contact author on the [SplunkBase link](https://splunkbase.splunk.com/app/7969) and I will try to get back to you when possible, thanks!
 
 ## Release Notes
+### 0.0.5
+Changed label in app.conf to Automatic Data Rebalance, corrected a typo in the description
+
 ### 0.0.4
 Corrected an error where the threshold would always be set, even if it was unchanged
 
