@@ -87,6 +87,9 @@ You can change `verify=True` to `verify=False` in the bin/auto_data_rebalance.py
 Feel free to open an issue on github or use the contact author on the [SplunkBase link](https://splunkbase.splunk.com/app/7969) and I will try to get back to you when possible, thanks!
 
 ## Release Notes
+### 0.0.7
+Adding python.required in `inputs.conf` as requested by splunkbase, this is supported in 10.2 and above. Harmless warning messages may occur on older Splunk versions.
+
 ### 0.0.6
 README.md update only
 
